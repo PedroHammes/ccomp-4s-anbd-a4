@@ -5,7 +5,7 @@
 - João Pedro Hammes Pacheco - 1250114386
 - Renan Luiz - matricula
 - Sarah Beatriz - matricula
-- Vinicius Seraine - matricula
+- Vinicius Seraine - 1250123608
 
 ## Requisitos:
 Minimundo: Loja virtual registra produtos vendidos com valores e datas.
