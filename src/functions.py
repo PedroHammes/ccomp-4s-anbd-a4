@@ -61,6 +61,9 @@ def product_ranking():
 
 
 def plot_product_ranking(ranking):
+
+    plt.clf()
+
     # fluxo para gráficos:
     # 1. preparar os dados (para este gráfico eu prearei em product_ranking())
     # 2. criar o grafico
