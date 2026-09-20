@@ -10,7 +10,7 @@ def menu():
 
         match opt: 
             case '1': sale()
-            case '2': print("Relatórios") # relatorios()
+            case '2': product_ranking()
             case '0': 
                 print("Saindo...")
                 break
@@ -37,6 +37,26 @@ def sale():
     current_sales = pd.read_excel("sales/sales.xlsx")
     updated_sales = pd.concat([current_sales, new_sale])
     updated_sales.to_excel("sales/sales.xlsx", sheet_name="sales", index=False)
+
+
+# poderia ser feito usando método de pd mas o enunciado exige laço de repetição comum
+def product_ranking():
+    ranking = {} # tipo dicionário (chave:valor), ententdam como objeto do JS
+    current_sales = pd.read_excel("sales/sales.xlsx")
+
+    for index, row in current_sales.iterrows():
+        if row["Produto"] in ranking:
+            ranking[row["Produto"]] += row["Valor"]
+        else: 
+            ranking[row["Produto"]] = row["Valor"]
+
+    # passar o dicionário para dataframe e usar as chaves do diconário como colunas
+    ranking_df = pd.DataFrame(ranking.items(), columns=["Produto", "Valor"])
+    ranking_df = ranking_df.sort_values("Valor", ascending=False) # ordena pela coluna false
+    print(ranking_df)
+
+        
+
 
 
 
