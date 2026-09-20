@@ -21,6 +21,6 @@ relatórios.
 1. Clone o repo
 2. Atualize a branch principal (git pull)
 3. Crie a partir dela a sua branch de trabalho
-3.1. A branch deve seguir a nomenclatura: card-00-foco
-4. Dê push da sua merge
-5. Uma pessoa será responsável pelo review e merge (pedro ou isabela).
+3.1. A branch deve seguir a nomenclatura: card-000-(descriçãobreve)
+4. Dê push direto da sua branch de trabalho (não faça o merge dela na main)
+5. Uma pessoa será responsável pelo review e merge da sua branch na main.
