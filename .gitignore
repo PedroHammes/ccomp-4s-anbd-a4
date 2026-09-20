@@ -1,0 +1,6 @@
+# ambiente virtual, cada membro cria o seu
+.venv/
+
+# Cache python gerado durante as execuções
+__pycache__/
+*.pyc
