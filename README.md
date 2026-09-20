@@ -15,3 +15,12 @@ relatórios.
 - Python: Estruturas de repetição para somar vendas e funções para
 relatórios.
 - Apresentação: Dashboards com ranking de produtos
+
+## Regras de colaboração
+
+1. Clone o repo
+2. Atualize a branch principal (git pull)
+3. Crie a partir dela a sua branch de trabalho
+3.1. A branch deve seguir a nomenclatura: card-00-foco
+4. Dê push da sua merge
+5. Uma pessoa será responsável pelo review e merge (pedro ou isabela).
