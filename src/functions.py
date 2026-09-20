@@ -53,7 +53,7 @@ def product_ranking():
     # passar o dicionário para dataframe e usar as chaves do diconário como colunas
     ranking_df = pd.DataFrame(ranking.items(), columns=["Produto", "Valor"])
     ranking_df = ranking_df.sort_values("Valor", ascending=False) # ordena pela coluna false
-    print(ranking_df)
+    return ranking_df
 
         
 
