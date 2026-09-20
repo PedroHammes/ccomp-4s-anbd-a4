@@ -1,16 +1,18 @@
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 def menu():
     """Exibe o menu inicial com as funções do sistema"""
 
     while True: # True garante que o loop SEMPRE execute
 
-        print("[1] Registrar vendas\n[2] Relatórios\n[0] Sair\n")
+        print("[1] Registrar vendas\n[2] Ranking de produtos\n[0] Sair\n")
         opt = input(">")
 
         match opt: 
             case '1': sale()
-            case '2': product_ranking()
+            case '2': plot_product_ranking(product_ranking())
             case '0': 
                 print("Saindo...")
                 break
@@ -56,6 +58,23 @@ def product_ranking():
     return ranking_df
 
         
+
+
+def plot_product_ranking(ranking):
+    # fluxo para gráficos:
+    # 1. preparar os dados (para este gráfico eu prearei em product_ranking())
+    # 2. criar o grafico
+    # 3. rotular
+    # 4. retorno
+    sns.barplot(data=ranking, x="Produto", y="Valor")   # cria o grafico
+
+    # routulos
+    plt.title("Ranking de produtos por receita gerada") # titulo
+    plt.xlabel("Produto")                               # legenda eixo X
+    plt.ylabel("Faturamento (R$)")                      # legenda eixo y
+
+    plt.savefig("dashboards/ranking_produtos.png")       # salva o gráfico para usar na slides
+    plt.show()                                          # exibe
 
 
 
