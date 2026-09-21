@@ -8,13 +8,13 @@
 - Vinicius Seraine - 1250123608
 
 ## Requisitos:
-Minimundo: Loja virtual registra produtos vendidos com valores e datas.
+Minimundo: Loja virtual registra produtos vendidos com valores e datas. (vini)
 - Fluxograma: Inserção de vendas → Processamento → Geração de
 relatórios.
 - Caso de Uso: Administrador acompanha faturamento mensal.
 - Python: Estruturas de repetição para somar vendas e funções para
 relatórios.
-- Apresentação: Dashboards com ranking de produtos
+- Apresentação: Dashboards com ranking de produtos 
 
 ## Regras de colaboração
 
