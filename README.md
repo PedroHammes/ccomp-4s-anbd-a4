@@ -4,7 +4,7 @@
 - Isabela Lessa - matricula
 - João Pedro Hammes Pacheco - 1250114386
 - Renan Luiz - matricula
-- Sarah Beatriz - matricula
+- Sarah Beatriz - 1250123606
 - Vinicius Seraine - 1250123608
 
 ## Requisitos:
