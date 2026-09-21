@@ -3,7 +3,7 @@
 ## Membros:
 - Isabela Lessa - matricula
 - João Pedro Hammes Pacheco - 1250114386
-- Renan Luiz - matricula
+- Renan Luis - 1250110903
 - Sarah Beatriz - 1250123606
 - Vinicius Seraine - 1250123608
 
