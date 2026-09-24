@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+# Valida se a string informada está no formato dd/mm/aaaa e se representa uma data real.
 def validar_data(data_str: str) -> bool:
     partes = data_str.split('/')
     if len(partes) != 3:
@@ -21,22 +22,25 @@ def validar_data(data_str: str) -> bool:
     except ValueError:
         return False
     
+# Exibe o menu principal e gerencia a navegação do sistema.
 def menu():
-    """Exibe o menu inicial com as funções do sistema"""
-
-    while True: # True para garantir que o loop SEMPRE execute ao menos a primeira vez
-        print("[1] Registrar vendas\n[2] Ranking de produtos\n[0] Sair\n")
+    while True:
+        print("[1] Registrar vendas\n[2] Ranking de produtos\n[3] Faturamento mensal\n[0] Sair\n")
         opt = input(">")
         match opt:
             case '1': record_sale()
             case '2': plot_product_ranking(product_ranking())
+            case '3': plot_monthly_revenue(monthly_revenue())
             case '0':
                 print("Saindo...")
                 break
-            case _: print("Opção inválida") 
+            case _: print("Opção inválida! Por favor, escolha uma opção válida.") 
 
+# Coleta os dados de uma nova venda, valida a data e persiste no arquivo Excel.
 def record_sale():
-    id = 0 # substituir por lógica de ID apropriada (aleatório ou incremental de acordo com a quantidade de registros)
+    current_sales = pd.read_excel("sales/sales.xlsx")
+    id = len(current_sales) + 1
+
     date = input("Informe a data da venda (dd/mm/aaaa): ")
     while not validar_data(date):
         print("Data inválida! Por favor, insira no formato dd/mm/aaaa com uma data válida.")
@@ -45,8 +49,9 @@ def record_sale():
     product = input("Informe o nome do produto: ")
     price = float(input("Informe o preço do produto: "))
     quantity = float(input("Informe a quantidade vendida: "))
-    value = price*quantity
-    print(f"produto: {product} | data: {date} | id: {id}\npreço: R${price}\nquantidade: {quantity}\nTotal: R${value}") # validação em ambiente de desenv
+    value = price * quantity
+    
+    print(f"produto: {product} | data: {date} | id: {id}\npreço: R${price}\nquantidade: {quantity}\nTotal: R${value}")
 
     new_sale = pd.DataFrame({
         "Produto": [product],
@@ -64,9 +69,9 @@ def update_sales_history(new_sale):
     updated_sales = pd.concat([current_sales, new_sale])
     updated_sales.to_excel("sales/sales.xlsx", sheet_name="sales", index=False)
 
-# acho que poderia ser feito usando método de pd mas o enunciado exige laço de repetição comum
+# Processa as vendas e retorna um DataFrame com o ranking de produtos por receita gerada.
 def product_ranking():
-    ranking = {} # tipo dicionário (chave:valor), ententdam como objeto do JS
+    ranking = {}
     current_sales = pd.read_excel("sales/sales.xlsx")
 
     for index, row in current_sales.iterrows():
@@ -75,24 +80,47 @@ def product_ranking():
         else: 
             ranking[row["Produto"]] = row["Valor"]
 
-    # passar o dicionário para dataframe e usar as chaves do dicionário como colunas
     ranking_df = pd.DataFrame(ranking.items(), columns=["Produto", "Valor"])
-    ranking_df = ranking_df.sort_values("Valor", ascending=False) # ordena pela coluna false
+    ranking_df = ranking_df.sort_values("Valor", ascending=False)
     return ranking_df
 
+# Processa as vendas e retorna um DataFrame com o faturamento acumulado por mês.
+def monthly_revenue():
+    revenue = {}
+    current_sales = pd.read_excel("sales/sales.xlsx")
+
+    for index, row in current_sales.iterrows():
+        # Agrupa por ano/mês (YYYY/MM) para garantir a ordenação cronológica correta
+        month_year = row["Data"].split("/")[2] + "/" + row["Data"].split("/")[1]
+        if month_year in revenue:
+            revenue[month_year] += row["Valor"]
+        else:
+            revenue[month_year] = row["Valor"]
+
+    revenue_df = pd.DataFrame(revenue.items(), columns=["Mês", "Valor"])
+    revenue_df = revenue_df.sort_values("Mês", ascending=True)
+    return revenue_df
+
+# Gera, exibe e salva o gráfico de barras do faturamento mensal.
+def plot_monthly_revenue(revenue):
+    plt.clf()
+    sns.barplot(data=revenue, x="Mês", y="Valor")
+
+    plt.title("Faturamento mensal")
+    plt.xlabel("Mês")
+    plt.ylabel("Faturamento (R$)")
+
+    plt.savefig("dashboards/faturamento_mensal.png")
+    plt.show()
+
+# Gera, exibe e salva o gráfico de barras do ranking de produtos.
 def plot_product_ranking(ranking):
     plt.clf()
-    # fluxo para gráficos:
-    # 1. preparar os dados (para este gráfico eu prearei em product_ranking())
-    # 2. criar o grafico
-    # 3. rotular
-    # 4. retorno
-    sns.barplot(data=ranking, x="Produto", y="Valor")   # cria o grafico
+    sns.barplot(data=ranking, x="Produto", y="Valor")
 
-    # routulos
-    plt.title("Ranking de produtos por receita gerada") # titulo
-    plt.xlabel("Produto")                               # legenda eixo X
-    plt.ylabel("Faturamento (R$)")                      # legenda eixo y
+    plt.title("Ranking de produtos por receita gerada")
+    plt.xlabel("Produto")
+    plt.ylabel("Faturamento (R$)")
 
-    plt.savefig("dashboards/ranking_produtos.png")      # salva o gráfico para usar na slides
-    plt.show()                                          # exibe
+    plt.savefig("dashboards/ranking_produtos.png")
+    plt.show()
