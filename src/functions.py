@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -34,7 +35,7 @@ def menu():
             case '0':
                 print("Saindo...")
                 break
-            case _: print("Opção inválida! Por favor, escolha uma opção válida.") 
+            case _: print("Opção inválida! Por favor, escolha uma das opções abaixo.") 
 
 # Coleta os dados de uma nova venda, valida a data e persiste no arquivo Excel.
 def record_sale():
@@ -90,8 +91,14 @@ def monthly_revenue():
     current_sales = pd.read_excel("sales/sales.xlsx")
 
     for index, row in current_sales.iterrows():
-        # Agrupa por ano/mês (YYYY/MM) para garantir a ordenação cronológica correta
-        month_year = row["Data"].split("/")[2] + "/" + row["Data"].split("/")[1]
+        data = row["Data"]
+        
+        # Compatibilidade caso o pandas leia como texto ou como Timestamp do Excel
+        if isinstance(data, str):
+            month_year = data.split("/")[2] + "/" + data.split("/")[1]
+        else:
+            month_year = data.strftime("%Y/%m")
+            
         if month_year in revenue:
             revenue[month_year] += row["Valor"]
         else:
@@ -103,6 +110,7 @@ def monthly_revenue():
 
 # Gera, exibe e salva o gráfico de barras do faturamento mensal.
 def plot_monthly_revenue(revenue):
+    os.makedirs("dashboards", exist_ok=True)  # Cria a pasta se não existir
     plt.clf()
     sns.barplot(data=revenue, x="Mês", y="Valor")
 
@@ -115,6 +123,7 @@ def plot_monthly_revenue(revenue):
 
 # Gera, exibe e salva o gráfico de barras do ranking de produtos.
 def plot_product_ranking(ranking):
+    os.makedirs("dashboards", exist_ok=True)  # Cria a pasta se não existir
     plt.clf()
     sns.barplot(data=ranking, x="Produto", y="Valor")
 
