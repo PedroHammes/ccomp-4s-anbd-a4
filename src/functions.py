@@ -28,14 +28,14 @@ def menu():
         print("[1] Registrar vendas\n[2] Ranking de produtos\n[0] Sair\n")
         opt = input(">")
         match opt:
-            case '1': sale()
+            case '1': record_sale()
             case '2': plot_product_ranking(product_ranking())
             case '0':
                 print("Saindo...")
                 break
             case _: print("Opção inválida") 
 
-def sale():
+def record_sale():
     id = 0 # substituir por lógica de ID apropriada (aleatório ou incremental de acordo com a quantidade de registros)
     date = input("Informe a data da venda (dd/mm/aaaa): ")
     while not validar_data(date):
@@ -56,6 +56,10 @@ def sale():
         "Data": [date],
         "id": [id]
     })
+
+    update_sales_history(new_sale)
+
+def update_sales_history(new_sale):
     current_sales = pd.read_excel("sales/sales.xlsx")
     updated_sales = pd.concat([current_sales, new_sale])
     updated_sales.to_excel("sales/sales.xlsx", sheet_name="sales", index=False)
@@ -71,13 +75,10 @@ def product_ranking():
         else: 
             ranking[row["Produto"]] = row["Valor"]
 
-    # passar o dicionário para dataframe e usar as chaves do diconário como colunas
+    # passar o dicionário para dataframe e usar as chaves do dicionário como colunas
     ranking_df = pd.DataFrame(ranking.items(), columns=["Produto", "Valor"])
     ranking_df = ranking_df.sort_values("Valor", ascending=False) # ordena pela coluna false
     return ranking_df
-
-        
-
 
 def plot_product_ranking(ranking):
     plt.clf()
