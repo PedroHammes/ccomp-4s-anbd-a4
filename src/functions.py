@@ -28,7 +28,7 @@ def menu():
         print("[1] Registrar vendas\n[2] Ranking de produtos\n[3] Faturamento mensal\n[0] Sair\n")
         opt = input(">")
         match opt:
-            case '1': sale()
+            case '1': record_sale()
             case '2': plot_product_ranking(product_ranking())
             case '3': plot_monthly_revenue(monthly_revenue())
             case '0':
@@ -37,7 +37,7 @@ def menu():
             case _: print("Opção inválida! Por favor, escolha uma opção válida.") 
 
 # Coleta os dados de uma nova venda, valida a data e persiste no arquivo Excel.
-def sale():
+def record_sale():
     current_sales = pd.read_excel("sales/sales.xlsx")
     id = len(current_sales) + 1
 
@@ -61,6 +61,11 @@ def sale():
         "Data": [date],
         "id": [id]
     })
+
+    update_sales_history(new_sale)
+
+def update_sales_history(new_sale):
+    current_sales = pd.read_excel("sales/sales.xlsx")
     updated_sales = pd.concat([current_sales, new_sale])
     updated_sales.to_excel("sales/sales.xlsx", sheet_name="sales", index=False)
 
