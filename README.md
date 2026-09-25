@@ -130,3 +130,9 @@ projeto/
 | **Apresentação** (Dashboards com ranking)                     | Biblioteca `seaborn` em `plot_product_ranking()` |
 
 ---
+
+## 10. Link com conteúdos do projeto 
+
+Armazenamos via Google Drive documentações extensas sobre o projeto:
+
+[Drive Projeto](https://drive.google.com/drive/folders/1DhJNUYIKenwkRffSFHYpyG-SYs5rAUyM?usp=sharing)
