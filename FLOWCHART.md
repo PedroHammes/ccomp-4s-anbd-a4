@@ -1,4 +1,3 @@
-```mermaid
 ---
 config:
   layout: fixed
@@ -8,15 +7,18 @@ flowchart TB
     n2 --> n3[Exibe Menu Principal]
     n3 --> n4{Escolha da Opção}
     
-    n4 -->|"[1] Registrar Vendas"| n5[Valida a Data]
-    n5 --> n6[Coleta Dados do Produto]
-    n6 --> n7[Calcula Total e Salva no Excel]
+    n4 -->|"[1] Registrar Vendas"| n5[Calcula ID e Valida a Data]
+    n5 --> n6[Coleta Dados e Calcula Total]
+    n6 --> n7[Atualiza Histórico e Salva no Excel]
     n7 --> n3
     
-    n4 -->|"[2] Ranking de Produtos"| n8[Lê Planilha Excel]
-    n8 --> n9[Laço 'for' para Somar Faturamento]
-    n9 --> n10[Gera Gráfico e Salva PNG]
-    n10 --> n3
+    n4 -->|"[2] Ranking de Produtos"| n8[Processa Ranking via Laço 'for']
+    n8 --> n9[Gera Gráfico de Ranking e Salva PNG]
+    n9 --> n3
+
+    n4 -->|"[3] Faturamento Mensal"| n14[Agrupa por Mês YYYY/MM via Laço 'for']
+    n14 --> n15[Gera Gráfico de Faturamento e Salva PNG]
+    n15 --> n3
     
     n4 -->|"[0] Sair"| n12([Fim])
     
@@ -41,7 +43,9 @@ flowchart TB
     %% Bloco de Relatório/Ranking (Laranja/Amarelo claro)
     style n8 fill:#ffe0b2,stroke:#fb8c00,stroke-width:1px,color:#e65100
     style n9 fill:#ffe0b2,stroke:#fb8c00,stroke-width:1px,color:#e65100
-    style n10 fill:#ffe0b2,stroke:#fb8c00,stroke-width:1px,color:#e65100
+
+    %% Bloco de Faturamento Mensal (Ciano/Turquesa)
+    style n14 fill:#b2ebf2,stroke:#00acc1,stroke-width:1px,color:#006064
+    style n15 fill:#b2ebf2,stroke:#00acc1,stroke-width:1px,color:#006064
     
     style n13 fill:#f8d7da,stroke:#f5c6cb,stroke-width:1px,color:#721c24
-```
