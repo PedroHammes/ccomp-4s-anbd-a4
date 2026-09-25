@@ -35,7 +35,7 @@ O sistema entrega todas as funcionalidades principais exigidas pelo projeto:
 
 - **Registro de Vendas (`record_sale` e `update_sales_history`):** Captura informações de produtos, preços, quantidades e datas com validação rigorosa do formato `dd/mm/aaaa`.
 - **Cálculo de Ranking (`product_ranking`):** Utiliza laços de repetição tradicionais para totalizar a receita por produto, atendendo à exigência acadêmica de evitar funções automáticas de soma do Pandas.
-- **Acompanhamento de Faturamento:** Processa e consolida os dados para que o administrador acompanhe o faturamento e o desempenho comercial.
+- **Acompanhamento de Faturamento (`monthly_revenue` e `plot_monthly_revenue`):** Processa, consolida e agrupa os dados por ano/mês (`YYYY/MM`) de forma cronológica para que o administrador acompanhe o faturamento mensal com gráficos em barras.
 - **Geração de Dashboards:** Cria gráficos visuais (como o ranking de produtos por receita).
 
 ---
@@ -86,8 +86,9 @@ python main.py
 
 ### O Menu Principal oferece as seguintes opções:
 
-- **`[1] Registrar vendas`**: Abre o assistente interativo para cadastrar o nome do produto, preço, quantidade e data (com validação automática).
-- **`[2] Ranking de produtos`**: Processa a base de dados utilizando laços de repetição, ordena o faturamento e gera o gráfico correspondente.
+- **`[1] Registrar vendas`**: Abre o assistente interativo para cadastrar o nome do produto, preço, quantidade e data (com validação automática e ID incremental).
+- **`[2] Ranking de produtos`**: Processa a base de dados utilizando laços de repetição, ordena o faturamento por produto e gera o gráfico correspondente.
+- **`[3] Faturamento mensal`**: Agrega as vendas cronologicamente por mês (`YYYY/MM`) e exibe o dashboard de faturamento.
 - **`[0] Sair`**: Encerra a execução do programa.
 
 ### Estrutura de arquivos gerados:
@@ -103,13 +104,15 @@ python main.py
 projeto/
 ├── main.py
 ├── requirements.txt
+├── src/
+│   └── functions.py
 ├── sales/
 │   └── sales.xlsx
 └── dashboards/
-    └── ranking_produtos.png
-
+    ├── ranking_produtos.png
+    └── faturamento_mensal.png
 ```
-
+- **`src/`**: Contém os módulos com a lógica de negócio, rotinas de validação, manipulação do Excel e geração de gráficos
 - **`main.py`**: Arquivo central que concentra a lógica do menu, validações, regras de negócio e geração de gráficos.
 - **`sales/`**: Armazena os dados brutos em formato tabular (Excel).
 - **`dashboards/`**: Armazena as imagens de relatórios gráficos geradas para a apresentação.
