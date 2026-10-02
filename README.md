@@ -135,4 +135,4 @@ projeto/
 
 Armazenamos via Google Drive documentações extensas sobre o projeto:
 
-[Drive Projeto](https://drive.google.com/drive/folders/1DhJNUYIKenwkRffSFHYpyG-SYs5rAUyM?usp=sharing)
+<a href="https://drive.google.com/drive/folders/1DhJNUYIKenwkRffSFHYpyG-SYs5rAUyM?usp=sharing" target="_blank">Drive Projeto</a>
